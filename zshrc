@@ -1,12 +1,34 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
-export DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
+# Antigen setup
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="pygmalion"
+source "$HOME/antigen.zsh"
+
+antigen bundle pip
+antigen bundle rsync
+antigen bundle python
+#antigen bundle virtualenvwrapper
+antigen bundle node
+antigen bundle npm
+antigen bundle rake
+antigen bundle rvm
+antigen bundle bundler
+antigen bundle zsh-users/zsh-completions src
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle command-not-found
+antigen bundle history
+antigen bundle tmux
+antigen bundle vundle
+antigen bundle fabric
+antigen bundle git
+
+antigen use oh-my-zsh
+
+antigen bundle robbyrussell/oh-my-zsh
+
+antigen-theme af-magic
+antigen-apply
+
+# Path to your oh-my-zsh configuration.
+export DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -16,7 +38,7 @@ ZSH_THEME="pygmalion"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
+#DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
@@ -30,14 +52,6 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git history-substring-search command-not-found zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
 export PATH=~/bin:$PATH
 export PATH='/opt/firefox':$PATH
 export TERM=xterm-256color 
@@ -62,16 +76,12 @@ alias mvn-jetty-debug='MAVEN_OPTS="-XX:MaxPermSize=2048m -Xrunjdwp:transport=dt_
 alias mysql="mysql --pager='less -n -i -S -F -X'"
 alias l=ls
 export ORACLE_HOME=/opt/instantclient
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME:/opt/Eracom/lib
 
 export CLASSPATH=$CLASSPATH:/usr/share/java/libreadline-java.jar
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/jni/
 
-#alias ijython='/home/jsweeney/jython/bin/ipython'
-
 export PAGER='less -n -i -S -F -X'
 export PYTHONPATH=$PYTHONPATH:$HOME/python
-#export JAVA_HOME=/usr/lib/jvm/java-6-sun
 
 export GIT_PS1_SHOWDIRTYSTATE=true
 source /usr/local/bin/virtualenvwrapper.sh
@@ -97,3 +107,4 @@ export PYTHONPATH=$PYTHONPATH:$HOME/pylib
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
+

@@ -5,6 +5,9 @@ if ! hash dotfiles 2>/dev/null; then
     sudo pip install dotfiles
 fi
 
+echo 'Installing virtualenvwrapper if needed'
+sudo pip install virtualenvwrapper
+
 cd ~/.dotfiles
 
 git pull origin master
@@ -15,6 +18,6 @@ if [ ! -e ~/.dotfilesrc ]; then
 fi
 
 # update submodules (used for vim plugins)
-git submodule update --init --recursive
+#git submodule update --init --recursive
 
 dotfiles -s
