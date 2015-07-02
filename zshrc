@@ -1,5 +1,8 @@
 # Antigen setup
 
+if [[ ! -f  "$HOME/antigen.zsh" ]]; then
+  curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "$HOME/antigen.zsh"
+fi
 source "$HOME/antigen.zsh"
 
 antigen bundle pip
@@ -21,6 +24,7 @@ antigen bundle fabric
 antigen bundle git
 
 antigen use oh-my-zsh
+antigen bundle ssh-agent
 
 antigen bundle robbyrussell/oh-my-zsh
 
