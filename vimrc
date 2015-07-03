@@ -1,10 +1,20 @@
 " pathogen must come before filetype on
-execute pathogen#infect()
-execute pathogen#helptags()
+set nocompatible
+filetype off
 
+set rtp+=~/.vundle
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'ColorSchemeMenuMaker'
+
+call vundle#end()
+
+filetype plugin indent on
 syntax on
 colorscheme jellybeans
-filetype plugin indent on
 
 set number
 
