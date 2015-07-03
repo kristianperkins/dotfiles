@@ -5,6 +5,14 @@ if ! hash dotfiles 2>/dev/null; then
     sudo pip install dotfiles
 fi
 
+if [[ ! -f  "$HOME/.antigen.zsh" ]]; then
+      curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "$HOME/.antigen.zsh"
+fi
+
+if [[ ! -d  "$HOME/.vundle" ]]; then
+    git clone https://github.com/gmarik/Vundle.vim.git ~/.vundle
+fi
+
 echo 'Installing virtualenvwrapper if needed'
 sudo pip install virtualenvwrapper
 
