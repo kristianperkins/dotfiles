@@ -109,3 +109,10 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
+[[ -s "/Users/kperkins/.gvm/bin/gvm-init.sh" ]] && source "/Users/kperkins/.gvm/bin/gvm-init.sh"
+
+if [[ -f  "$HOME/.localzshrc" ]]; then
+    source "$HOME/.localzshrc"
+fi
+
+alias grails="echo '\n'; \grails"
