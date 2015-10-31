@@ -12,6 +12,7 @@ Plugin 'ColorSchemeMenuMaker'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-sensible'
+Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 
@@ -73,10 +74,9 @@ let g:jedi#popup_on_dot = 0
 let g:airline#extensions#branch#enabled = 1
 
 " filter things out of ctrlp
-set wildignore+=*.pyc
 
 " filter things out of nerdtree
-let NERDTreeIgnore=['\.pyc$', '\~$']
+let NERDTreeIgnore=['\.pyc$', '\~$', 'target']
 
 let g:syntastic_python_checkers=['flake8']
 
@@ -84,12 +84,21 @@ let g:syntastic_python_checkers=['flake8']
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-let g:ctrlp_cmd = 'CtrlPCurWD'
-
 " tagbar
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0  " sort by position
 
+" Section CtrlP config {{{
+
+set wildignore+=*.pyc,*.class,target
+let g:ctrlp_cmd = 'CtrlPCurWD'
+
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" }}}
 " Section Spaces & Tabs {{{
 
 " sane default whitespace/indent. Tabs, whoneedsem.
@@ -132,4 +141,6 @@ endfunction
 " allow dirty buffer switching (insert double entendre here)
 set hidden
 
-set modelines=3
+set modelines=1
+
+" vim:foldmethod=marker:foldlevel=0
