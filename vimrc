@@ -10,6 +10,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ColorSchemeMenuMaker'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-sensible'
 
 call vundle#end()
 
@@ -19,12 +21,7 @@ colorscheme jellybeans
 
 set number
 
-set showcmd
-set wildmenu
-
-
 " /searching defaults
-set incsearch
 set hlsearch
 set smartcase
 
@@ -94,15 +91,12 @@ let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0  " sort by position
 
 " Section Spaces & Tabs {{{
-" backspace like a boss
-set backspace=indent,eol,start
 
 " sane default whitespace/indent. Tabs, whoneedsem.
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set textwidth=80
-set smarttab
 set expandtab
 
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -135,14 +129,7 @@ endfunction
 
 " }}}
 
-" always show statusline (even when only one buffer open)
-set laststatus=2
-
 " allow dirty buffer switching (insert double entendre here)
 set hidden
 
-" Section vimrc Specific {{{
 set modelines=3
-" vim:foldmethod=marker:foldlevel=0
-" }}}
-
