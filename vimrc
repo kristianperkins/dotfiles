@@ -29,10 +29,6 @@ set smartcase
 " just for mousewheel scrolling, I promise 0_o
 set mouse=a
 
-" highlight the line where the cursor is at for my poor eyes
-set cursorline
-hi CursorLine term=NONE cterm=NONE guibg=Grey40
-
 " trim trailing whitespace for python files (pep8)
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 
@@ -88,6 +84,14 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0  " sort by position
 
+" Section Highlights {{{
+" highlight the line where the cursor is at for my poor eyes
+set cursorline
+hi CursorLine term=NONE cterm=NONE guibg=Grey40
+
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+" }}}
 " Section CtrlP config {{{
 
 set wildignore+=*.pyc,*.class,target
