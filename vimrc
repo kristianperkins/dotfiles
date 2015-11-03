@@ -84,6 +84,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 0  " sort by position
 
+
 " Section Highlights {{{
 " highlight the line where the cursor is at for my poor eyes
 set cursorline
@@ -145,6 +146,10 @@ endfunction
 " allow dirty buffer switching (insert double entendre here)
 set hidden
 
+" Section vimrc {{{
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" }}}
 set modelines=1
 
 " vim:foldmethod=marker:foldlevel=0
