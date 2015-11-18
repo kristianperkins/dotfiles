@@ -2,6 +2,7 @@
 set nocompatible
 filetype off
 
+" Section vundle {{{
 set rtp+=~/.vundle
 call vundle#begin()
 
@@ -20,6 +21,7 @@ Plugin 'xolox/vim-notes'
 Plugin 'bling/vim-airline'
 
 call vundle#end()
+" }}}
 
 filetype plugin indent on
 syntax on
