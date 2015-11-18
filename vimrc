@@ -76,6 +76,9 @@ let g:jedi#popup_on_dot = 0
 " turn on git branch for airline
 let g:airline#extensions#branch#enabled = 1
 
+" append .txt to vim notes
+let g:notes_suffix = '.txt'
+
 " filter things out of ctrlp
 
 " filter things out of nerdtree
