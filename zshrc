@@ -1,21 +1,20 @@
 # Antigen setup
-
 source "$HOME/.antigen.zsh"
 
 antigen bundle pip
 antigen bundle rsync
 antigen bundle python
 #antigen bundle virtualenvwrapper
-antigen bundle node
-antigen bundle npm
+#antigen bundle node
+#antigen bundle npm
 antigen bundle rake
-antigen bundle rvm
+#antigen bundle rvm
 antigen bundle bundler
 antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
+#antigen bundle zsh-users/zaw
 antigen bundle command-not-found
-antigen bundle history
 antigen bundle tmux
 antigen bundle vundle
 antigen bundle fabric
@@ -25,9 +24,12 @@ antigen use oh-my-zsh
 # antigen bundle ssh-agent
 
 antigen bundle robbyrussell/oh-my-zsh
+antigen bundle history
+antigen bundle history-substring-search
 
-antigen bundle therealklanni/purity
+#antigen bundle therealklanni/purity
 # antigen-theme af-magic
+antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
 antigen-apply
 
@@ -90,6 +92,7 @@ unsetopt correct_all
 ttyctl -f
 
 alias mvn-jetty-debug='MAVEN_OPTS="-XX:MaxPermSize=2048m -Xrunjdwp:transport=dt_socket,address=8000,server=y" mvn jetty:run'
+alias mvn=mvn-color
 alias mysql="mysql --pager='less -n -i -S -F -X'"
 alias l=ls
 export ORACLE_HOME=/opt/instantclient
@@ -132,3 +135,24 @@ if [[ -f  "$HOME/.localzshrc" ]]; then
 fi
 
 alias grails="echo '\n'; \grails"
+
+# sommore git aliases
+alias wow="git status -s"
+alias such=git
+alias very=git
+alias so=glol
+alias st="open -a SourceTree"
+
+#test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+#export SDKMAN_DIR="/Users/kperkins/.sdkman"
+#[[ -s "/Users/kperkins/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/kperkins/.sdkman/bin/sdkman-init.sh"
+
+# https://github.com/robbyrussell/oh-my-zsh/pull/5435
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# oracle shit: https://gist.github.com/thom-nic/6011715
+export ORACLE_HOME=/usr/lib/share/oracle/instantclient
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME

@@ -2,24 +2,34 @@
 set nocompatible
 filetype off
 
+let g:netrw_liststyle=3
+
 " Section vundle {{{
 set rtp+=~/.vundle
 call vundle#begin()
-
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ColorSchemeMenuMaker'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-surround'
 Plugin 'kien/ctrlp.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'easymotion/vim-easymotion'
+Plugin 'justinmk/vim-sneak'
+"Plugin 'LucHermitte/lh-vim-lib'
+"Plugin 'LucHermitte/local_vimrc'
+"Plugin 'mnpk/vim-jira-complete'
 
+" syntax support
+Plugin 'plasticboy/vim-markdown'
+Plugin 'elixir-lang/vim-elixir'
 call vundle#end()
 " }}}
 
@@ -28,6 +38,7 @@ syntax on
 colorscheme jellybeans
 
 set number
+set relativenumber
 
 " /searching defaults
 set hlsearch
@@ -75,9 +86,11 @@ let g:jedi#popup_on_dot = 0
 
 " turn on git branch for airline
 let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " append .txt to vim notes
 let g:notes_suffix = '.txt'
+:let g:notes_directories = ['~/Dropbox/Shared Notes']
 
 " filter things out of ctrlp
 
@@ -100,13 +113,13 @@ let g:tagbar_sort = 0  " sort by position
 set cursorline
 hi CursorLine term=NONE cterm=NONE guibg=Grey40
 
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%81v', 100)
 " }}}
 " Section CtrlP config {{{
 
-set wildignore+=*.pyc,*.class,target
-let g:ctrlp_cmd = 'CtrlPCurWD'
+"set wildignore+=*.pyc,*.class,target
+"let g:ctrlp_cmd = 'CtrlPCurWD'
 
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
@@ -122,6 +135,8 @@ set softtabstop=4
 set shiftwidth=4
 set textwidth=80
 set expandtab
+
+set list
 
 " Set tabstop, softtabstop and shiftwidth to the same value
 command! -nargs=* Stab call Stab()
