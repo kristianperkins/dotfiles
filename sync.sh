@@ -5,8 +5,8 @@ if ! hash dotfiles 2>/dev/null; then
     sudo pip install dotfiles
 fi
 
-if [[ ! -f  "$HOME/.antigen.zsh" ]]; then
-      curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/antigen.zsh > "$HOME/.antigen.zsh"
+if [[ ! -f  "$HOME/.zgen" ]]; then
+    git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 fi
 
 if [[ ! -d  "$HOME/.vundle" ]]; then

@@ -1,60 +1,105 @@
-# Antigen setup
-source "$HOME/.antigen.zsh"
+# Section zgen {{{
+source "${HOME}/.zgen/zgen.zsh"
 
-antigen bundle pip
-antigen bundle rsync
-antigen bundle python
-#antigen bundle virtualenvwrapper
-#antigen bundle node
-#antigen bundle npm
-antigen bundle rake
-#antigen bundle rvm
-antigen bundle bundler
-antigen bundle zsh-users/zsh-completions src
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-history-substring-search
-#antigen bundle zsh-users/zaw
-antigen bundle command-not-found
-antigen bundle tmux
-antigen bundle vundle
-antigen bundle fabric
-antigen bundle git
+# load zgen if not already cached
+if ! zgen saved; then
+    zgen oh-my-zsh
 
-antigen use oh-my-zsh
-# antigen bundle ssh-agent
+    # themes
+    #zgen oh-my-zsh themes/af-magic
+    #zgen load therealklanni/purity
+    zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
-antigen bundle robbyrussell/oh-my-zsh
-antigen bundle history
-antigen bundle history-substring-search
+    #zgen load zsh-users/zsh-completions src
+    #zgen load zsh-users/zsh-history-substring-search
+    zgen load zsh-users/zsh-syntax-highlighting
 
-#antigen bundle therealklanni/purity
-# antigen-theme af-magic
-antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+    zgen load zuxfoucault/colored-man-pages_mod
 
-antigen-apply
+    zgen oh-my-zsh plugins/catimg
+    #zgen oh-my-zsh plugins/command-not-found
+    #zgen oh-my-zsh plugins/fabric
+    zgen oh-my-zsh plugins/git
+    zgen oh-my-zsh plugins/pip
+    zgen oh-my-zsh plugins/python
+    zgen oh-my-zsh plugins/sudo
+    zgen oh-my-zsh plugins/tmux
+    zgen oh-my-zsh plugins/vundle
+
+    zgen oh-my-zsh plugins/history
+    zgen oh-my-zsh plugins/history-substring-search
+
+    zgen save
+fi
+
+# }}}
+
+# Section Bullettrain prompt {{{
+BULLETTRAIN_PROMPT_ORDER=(
+    time
+    status
+    custom
+#   context
+    dir
+    perl
+    ruby
+    virtualenv
+    go
+    git
+    hg
+    cmd_exec_time
+)
+
+tab () {
+    if [[ ! -z "$@" ]]; then
+        export DISABLE_AUTO_TITLE=true
+        BULLETTRAIN_CUSTOM_MSG="$@"
+        title "$@"
+    else
+        export DISABLE_AUTO_TITLE=
+        BULLETTRAIN_CUSTOM_MSG=
+    fi
+}
+
+# }}}
+
+# Section history search config {{{
 
 # Path to your oh-my-zsh configuration.
 export DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
-
-# bind UP and DOWN arrow keys
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # bind UP and DOWN arrow keys (compatibility fallback
 # for Ubuntu 12.04, Fedora 21, and MacOSX 10.9 users)
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+# Shift up/down for beginning of command search
+bindkey "$terminfo[kri]" history-beginning-search-backward
+bindkey "$terminfo[kind]" history-beginning-search-forward
+
 # bind P and N for EMACS mode
 bindkey -M emacs '^P' history-substring-search-up
 bindkey -M emacs '^N' history-substring-search-down
 
 # bind k and j for VI mode
+bindkey -M vicmd '^[k' history-beginning-search-backward
+bindkey -M vicmd '^[j' history-beginning-search-forward
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# VI mode
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+
+# }}}
+
+# Section original omz {{{
+
+# https://github.com/robbyrussell/oh-my-zsh/pull/5435
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# zsh VI mode
 # bindkey -v
 # export KEYTIMEOUT=1
 
@@ -79,11 +124,12 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
+# }}}
 
+# Section General variables and aliases {{{
 export PATH=~/bin:$PATH
 export PATH='/opt/firefox':$PATH
 export TERM=xterm-256color 
-alias l='ls -l'
 unsetopt correct_all
 
 # tricks so that ctrl-s works in vim
@@ -91,6 +137,7 @@ unsetopt correct_all
 # `Frozing' tty, so after any command terminal settings will be restored
 ttyctl -f
 
+alias l='ls -l'
 alias mvn-jetty-debug='MAVEN_OPTS="-XX:MaxPermSize=2048m -Xrunjdwp:transport=dt_socket,address=8000,server=y" mvn jetty:run'
 alias mvn=mvn-color
 alias mysql="mysql --pager='less -n -i -S -F -X'"
@@ -118,9 +165,10 @@ function _fab_complete() {
      return 0
 }
 
-# enable programmable completion features (you don't need to enable 
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile 
-# sources /etc/bash.bashrc). 
+# oracle: https://gist.github.com/thom-nic/6011715
+export ORACLE_HOME=/usr/lib/share/oracle/instantclient
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
 
 # dircolors for solarized from:
 # curl https://raw.github.com/seebi/dircolors-solarized/master/dircolors.256dark > ~/.dircolors
@@ -130,29 +178,32 @@ fi
 
 [[ -s "/Users/kperkins/.gvm/bin/gvm-init.sh" ]] && source "/Users/kperkins/.gvm/bin/gvm-init.sh"
 
-if [[ -f  "$HOME/.localzshrc" ]]; then
-    source "$HOME/.localzshrc"
-fi
-
 alias grails="echo '\n'; \grails"
 
-# sommore git aliases
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# }}}
+
+# Section more git aliases {{{
 alias wow="git status -s"
 alias such=git
 alias very=git
 alias so=glol
 alias st="open -a SourceTree"
 
+#}}}
+
+# Section local overrides {{{
+#
 #test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 #export SDKMAN_DIR="/Users/kperkins/.sdkman"
 #[[ -s "/Users/kperkins/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/kperkins/.sdkman/bin/sdkman-init.sh"
 
-# https://github.com/robbyrussell/oh-my-zsh/pull/5435
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+if [[ -f  "$HOME/.localzshrc" ]]; then
+    source "$HOME/.localzshrc"
+fi
+# }}}
 
-# oracle shit: https://gist.github.com/thom-nic/6011715
-export ORACLE_HOME=/usr/lib/share/oracle/instantclient
-export DYLD_LIBRARY_PATH=$ORACLE_HOME
-export LD_LIBRARY_PATH=$ORACLE_HOME
+# vim:foldmethod=marker:foldlevel=0
