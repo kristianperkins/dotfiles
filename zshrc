@@ -9,14 +9,21 @@ if ! zgen saved; then
     #zgen oh-my-zsh themes/af-magic
     #zgen load therealklanni/purity
     zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+    #zgen load zakaziko99/agnosterzak-ohmyzsh-theme
+
+    #zgen load mafredri/zsh-async
+    #zgen load sindresorhus/pure
+
+    # plugins
+    zgen load zuxfoucault/colored-man-pages_mod
+    zgen load b4b4r07/emoji-cli
 
     #zgen load zsh-users/zsh-completions src
     #zgen load zsh-users/zsh-history-substring-search
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zsh-autosuggestions
 
-    zgen load zuxfoucault/colored-man-pages_mod
-
+    # omz plugins
     zgen oh-my-zsh plugins/catimg
     #zgen oh-my-zsh plugins/command-not-found
     #zgen oh-my-zsh plugins/fabric
@@ -53,9 +60,11 @@ BULLETTRAIN_PROMPT_ORDER=(
 
 tab () {
     if [[ ! -z "$@" ]]; then
+        # resolve emoji's in text
+        text=`emojify "$@"`
         export DISABLE_AUTO_TITLE=true
-        BULLETTRAIN_CUSTOM_MSG="$@"
-        title "$@"
+        BULLETTRAIN_CUSTOM_MSG="\"$text \""
+        title "$text"
     else
         export DISABLE_AUTO_TITLE=
         BULLETTRAIN_CUSTOM_MSG=
