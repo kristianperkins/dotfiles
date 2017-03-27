@@ -64,7 +64,7 @@ tab () {
         text=`emojify "$@"`
         export DISABLE_AUTO_TITLE=true
         BULLETTRAIN_CUSTOM_MSG="\"$text \""
-        title "$text"
+        echo -ne "\e]1;$text\a"
     else
         export DISABLE_AUTO_TITLE=
         BULLETTRAIN_CUSTOM_MSG=
